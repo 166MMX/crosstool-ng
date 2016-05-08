@@ -20,9 +20,10 @@ addons:
 
 # Building the standard samples
 script:
-    - shellcheck bootstrap scripts/functions
+    - shellcheck -- bootstrap scripts/functions
+    - shellcheck -- scripts/functions
     - find scripts -type f -name '*.sh' -exec shellcheck '{}' ';'
-    - find scripts -type f ! -name '*.sh' -exec file '{}'  '|' awk '-F:' '/bash/ {print $1}' '|' xargs -l -i 'shellcheck "{}"' ';'
+    - find scripts -type f ! -name '*.sh' -exec file -- '{}'  '|' tee '|' awk '-F:' '/bash/ {print $1}' '|' tee '|' xargs -l -i 'shellcheck "{}"' ';'
     #- bash -c 'shopt -s globstar; shellcheck **/*.{sh,bash}'
     #- . ./.travis.sh      # Load the travis environment
     #- ct-ng $CT_SAMPLE    # Configure the build
