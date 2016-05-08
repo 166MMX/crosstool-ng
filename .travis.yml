@@ -20,7 +20,7 @@ addons:
 
 # Building the standard samples
 script:
-    - shellcheck -- bootstrap scripts/functions
+    - shellcheck -- bootstrap
     - shellcheck -- scripts/functions
     - find scripts -type f -name '*.sh' -exec shellcheck '{}' ';'
     - find scripts -type f ! -name '*.sh' -exec file -- '{}'  ';' | tee | awk '-F:' '/bash/ {print $1}' | tee | xargs -l -i 'shellcheck "{}"'
